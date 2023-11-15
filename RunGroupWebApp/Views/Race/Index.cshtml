@@ -1,0 +1,64 @@
+﻿@using RunGroupWebApp.Data.Enum;
+@model IEnumerable<Race>
+
+
+<section class="space-sm flush-with-above">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <p>Races Categories</p>
+                <div class="mb-3">
+                    <a type="button" class="btn btn-secondary mb-1"
+                       asp-action="Index" asp-route-page="1" asp-route-category="-1">All</a>
+                    @foreach (var category in Html.GetEnumSelectList<RaceCategory>())
+                    {
+                        <a type="button" class="btn btn-secondary mb-1"
+                           asp-action="Index" asp-route-page="1" asp-route-category="@category.Value">@category.Text</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                
+            </div>
+        </div>
+        <ul class="row feature-list feature-list-sm">
+            @foreach (var race in Model)
+            {
+                <li class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        
+                        <div class="card-body">
+                            <h4 class="card-title">@race.Title</h4>
+                            <p class="card-text">@race.Address.City, @race.Address.State</p>
+                        </div>
+                        <div class="card-footer card-footer-borderless d-flex justify-content-between">
+                            <div>
+                                <small>@race.RaceCategory</small>
+                            </div>
+                            
+                            {
+                                <div>
+                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Race" asp-action="Edit" asp-route-id="@race.Id">
+                                        Edit
+                                    </a>
+                                    <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Race" asp-action="Delete" asp-route-id="@race.Id">
+                                        Delete
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                
+            </div>
+        </div>
+    </div>
+</section>
